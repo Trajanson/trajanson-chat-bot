@@ -4,6 +4,8 @@ import * as express from "express";
 
 import * as errorHandler from "errorhandler";
 
+import { injectBot } from "./chatbot";
+
 // const app = require("./app");
 
 // Create Express server
@@ -37,6 +39,4 @@ app.get("/", (req, res) => {
 
 app.post("/api/messages", connector.listen());
 
-const bot = new builder.UniversalBot(connector, (session) => {
-  session.send("Hi on Wednesday 2");
-});
+injectBot(connector);
