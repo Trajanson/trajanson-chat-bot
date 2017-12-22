@@ -7,7 +7,12 @@ import { injectDialogues } from "./dialogues";
 export const injectBot = (route: string, app: Express, connector: ChatConnector) => {
   app.post(route, connector.listen());
 
+  const inMemoryStorage = new builder.MemoryBotStorage();
+
   const bot = new builder.UniversalBot(connector);
+  bot.set("storage", inMemoryStorage);
+  bot.set(`persistUserData`, true);
+
   injectDialogues(bot);
 
   // send simple notification
