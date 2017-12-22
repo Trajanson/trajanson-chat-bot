@@ -9,4 +9,4 @@ const connector = new builder.ChatConnector({
   openIdMetadata: process.env.BotOpenIdMetadata,
 });
 
-injectBot(app, connector);
+injectBot("/api/messages", app, connector);

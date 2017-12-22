@@ -2,8 +2,10 @@ import * as builder from "botbuilder";
 import { ChatConnector, IAddress } from "botbuilder";
 import { Express } from "express";
 
-export const injectBot = (app: Express, connector: ChatConnector) => {
-  app.post("/api/messages", connector.listen());
+import { injectDialogues } from "./dialogues";
+
+export const injectBot = (route: string, app: Express, connector: ChatConnector) => {
+  app.post(route, connector.listen());
 
   const bot = new builder.UniversalBot(connector, [(session, args, next) => {
     const userAddress = session.message.address;
@@ -37,9 +39,7 @@ export const injectBot = (app: Express, connector: ChatConnector) => {
   const sendProactiveMessage = (address: IAddress) => {
     const message = new builder.Message().address(address);
 
-    console.log("ENTERED PROACTIVE MESSAGE SEND");
-
-    message.text("Hello, this is another notification");
+    message.text("Hello, the Trajanson Bot has been deployed.");
     message.textLocale("en-US");
     bot.send(message);
   };
