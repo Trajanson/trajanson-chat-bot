@@ -7,24 +7,6 @@ const rootDialog: IDialogWaterfallStep[] = [
     (session, args, next) => {
         const userAddress = session.message.address;
 
-        session.send(`userAddress:\n${JSON.stringify(userAddress)}`);
-        console.log(`userAddress:\n${JSON.stringify(userAddress)}`);
-
-        const address = {
-            // "id": "mid.$cAAKTO2eCPcxmqKR7rVgd18zg9LdW",
-            "channelId": "facebook",
-            "user": { "id": "1755254141186727", "name": "Theoderik Trajanson" },
-            "conversation": {"isGroup": false, "id": "1755254141186727-724832851055215"},
-            "bot": { "id": "724832851055215", "name": "trajanson-chat-bot" },
-            "serviceUrl": "https://facebook.botframework.com",
-          };
-        const message = new builder.Message()
-        .address(address);
-
-        message.textLocale("en-US");
-        message.text(`userAddress:\n${JSON.stringify(userAddress)}`);
-        session.send(message);
-
         const userRecord: IUserRecord = session.userData.record;
         if (!userRecord) {
             session.userData.record = defaultUserRecord;
@@ -33,9 +15,9 @@ const rootDialog: IDialogWaterfallStep[] = [
         // session.send(`Your address is ${JSON.stringify(userAddress)}`);
 
         if (userRecord && userRecord.hasMetBot) {
-        session.beginDialog("knownUser");
+            session.beginDialog("WelcomeKnownUser");
         } else {
-        session.beginDialog("unknownUser");
+            session.beginDialog("WelcomeUnknownUser");
         }
         session.endConversation(`That's all for now! Let's talk soon!`);
     },
@@ -82,8 +64,39 @@ const unknownUserDialog: IDialogWaterfallStep[] = [
 export const injectDialogues = (bot: UniversalBot) => {
     bot.dialog("/", rootDialog);
 
-    bot.dialog("knownUser", knownUserDialog);
+    bot.dialog("WelcomeKnownUser", knownUserDialog);
 
-    bot.dialog("unknownUser", unknownUserDialog);
+    bot.dialog("WelcomeUnknownUser", unknownUserDialog);
+
+    bot.dialog("LaughDialogue", [(session, args, next) => {
+        session.send("hahaha");
+        session.endDialogWithResult({});
+    }]).triggerAction({
+        matches: /^lol$/i,
+        onSelectAction: (session, args) => {
+            session.beginDialog(args.action, args);
+        },
+    });
+
+    bot.dialog("Help", [
+        (session, args, next) => {
+            let message = "";
+            switch (args.action) {
+                case "AddNumber":
+                    message = "You can either type the next number, or use **total** to get the total.";
+                    break;
+                default:
+                    message = "You can type **add** to add numbers.";
+                    break;
+            }
+            session.endDialog(message);
+        }
+    ]).triggerAction({
+        matches: /^help/i,
+        onSelectAction: (session, args) => {
+            session.beginDialog(args.action, args);
+        }
+    });
+
 
 };

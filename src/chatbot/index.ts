@@ -30,29 +30,6 @@ export const injectBot = (route: string, app: Express, connector: ChatConnector)
 
   injectDialogues(bot);
 
-  // send simple notification
-  // const sendProactiveMessage = (address: IAddress) => {
-
-  //   const card = new builder.AnimationCard()
-  //   .title("Fearless!")
-  //   .subtitle("Hello, the Trajanson Bot has been deployed.")
-  //   .image(builder.CardImage.create(undefined, "https://media.giphy.com/media/l2ZDM3ZInkt6epPeU/giphy.gif"))
-  //   .media([{
-  //     url: "https://media.giphy.com/media/l2ZDM3ZInkt6epPeU/giphy.gif",
-  //     profile: "1",
-  //   }])
-  //   ;
-
-  //   const message = new builder.Message()
-  //     .address(address)
-  //     .addAttachment(card);
-
-  //   message.textLocale("en-US");
-  //   bot.send(message);
-
-
-  // };
-
   setTimeout(() => {
     const card = new builder.AnimationCard()
     .title("Fearless!")
