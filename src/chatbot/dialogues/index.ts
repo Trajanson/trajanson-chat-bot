@@ -1,10 +1,10 @@
 import * as builder from "botbuilder";
-import { UniversalBot } from "botbuilder";
+import { UniversalBot, IDialogWaterfallStep } from "botbuilder";
 import { IUserRecord } from "./../../models/User";
 import { defaultUserRecord, updateHasMetBot } from "./../../models/User/index";
 
-export const injectDialogues = (bot: UniversalBot) => {
-    bot.dialog("/", [(session, args, next) => {
+const rootDialog: IDialogWaterfallStep[] = [
+    (session, args, next) => {
         const userAddress = session.message.address;
 
         const userRecord: IUserRecord = session.userData.record;
@@ -15,22 +15,40 @@ export const injectDialogues = (bot: UniversalBot) => {
         // session.send(`Your address is ${JSON.stringify(userAddress)}`);
 
         if (userRecord && userRecord.hasMetBot) {
-          session.beginDialog("knownUser");
+        session.beginDialog("knownUser");
         } else {
-          session.beginDialog("unknownUser");
+        session.beginDialog("unknownUser");
         }
         session.endConversation(`That's all for now! Let's talk soon!`);
-    }]);
+    },
+];
 
-    bot.dialog("knownUser", [(session, args, next) => {
-
+const knownUserDialog: IDialogWaterfallStep[] = [
+    (session, args, next) => {
         session.send("Hey Theoderik! Good to see you again! It's me Taylor!");
         // session.endDialogWithResult({ response: name.trim() });
-      session.endDialogWithResult({});
-      }]);
+        session.endDialogWithResult({});
+    },
+];
 
-      bot.dialog("unknownUser", [(session, args, next) => {
+const unknownUserDialog: IDialogWaterfallStep[] = [
+    (session, args, next) => {
         const userRecord: IUserRecord = session.userData.record;
+
+        const card = new builder.AnimationCard()
+        // .title("Fearless!")
+        // .subtitle("Hello, the Trajanson Bot has been deployed.")
+        .image(builder.CardImage.create(session, "https://media.giphy.com/media/YF1pE6d3JJIkM/giphy.gif"))
+        .media([{
+          url: "https://media.giphy.com/media/YF1pE6d3JJIkM/giphy.gif",
+          profile: "1",
+        }])
+        ;
+
+        const message = new builder.Message(session)
+          .addAttachment(card);
+
+        session.send(message);
 
         session.send(`Hey Theoderik! Have we met? I’m Taylor!`);
         session.send(`I help Julian schedule time to assemble with superlative people like yourself. In fact, that's what I'm doing right now! Are you free Tuesday or Wednesday at 7pm EST?`);
@@ -39,6 +57,15 @@ export const injectDialogues = (bot: UniversalBot) => {
         session.save();
 
         session.endDialogWithResult({});
-      }]);
+    },
+];
+
+
+export const injectDialogues = (bot: UniversalBot) => {
+    bot.dialog("/", rootDialog);
+
+    bot.dialog("knownUser", knownUserDialog);
+
+    bot.dialog("unknownUser", unknownUserDialog);
 
 };
