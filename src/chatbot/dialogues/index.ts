@@ -7,6 +7,24 @@ const rootDialog: IDialogWaterfallStep[] = [
     (session, args, next) => {
         const userAddress = session.message.address;
 
+        session.send(`userAddress:\n${JSON.stringify(userAddress)}`);
+        console.log(`userAddress:\n${JSON.stringify(userAddress)}`);
+
+        // const address = {
+        //     // "id": "mid.$cAAKTO2eCPcxmqKR7rVgd18zg9LdW",
+        //     "channelId": "facebook",
+        //     "user": { "id": "1755254141186727", "name": "Theoderik Trajanson" },
+        //     "conversation": {"isGroup": false, "id": "1755254141186727-724832851055215"},
+        //     "bot": { "id": "724832851055215", "name": "trajanson-chat-bot" },
+        //     "serviceUrl": "https://facebook.botframework.com",
+        //   };
+        // const message = new builder.Message()
+        // .address(address)
+        // .addAttachment(card);
+
+        // message.textLocale("en-US");
+        // bot.send(message);
+
         const userRecord: IUserRecord = session.userData.record;
         if (!userRecord) {
             session.userData.record = defaultUserRecord;

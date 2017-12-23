@@ -52,7 +52,23 @@ export const injectBot = (route: string, app: Express, connector: ChatConnector)
 
   };
 
-  const address = {"id": "mid.$cAAKTO2eCPcxmqKR7rVgd18zg9LdW", "channelId": "facebook", "user": {"id": "1755254141186727", "name": "Theoderik Trajanson"}, "conversation": {"isGroup": false, "id": "1755254141186727-724832851055215"}, "bot": {"id": "724832851055215", "name": "trajanson-chat-bot"}, "serviceUrl": "https://facebook.botframework.com"};
+// const address = {
+//   "id": "+17249773225",
+//   "channelId": "sms",
+//   "user": { "id": "+17249773225", "name": "+17249773225" },
+//   "conversation": { "isGroup": false, "id": "+1723225"},
+//   "bot": { "id": "+13307879263", "name": "trajanson-chat-bot" },
+//   "serviceUrl": "https://facebook.botframework.com",
+// };
+
+  const address = {
+    // "id": "mid.$cAAKTO2eCPcxmqKR7rVgd18zg9LdW",
+    "channelId": "facebook",
+    "user": { "id": "1755254141186727", "name": "Theoderik Trajanson" },
+    "conversation": {"isGroup": false, "id": "1755254141186727-724832851055215"},
+    "bot": { "id": "724832851055215", "name": "trajanson-chat-bot" },
+    "serviceUrl": "https://facebook.botframework.com",
+  };
   setTimeout(() => {
     sendProactiveMessage(address);
    }, 5000);

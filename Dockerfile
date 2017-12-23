@@ -12,7 +12,7 @@ COPY package*.json ./
 RUN npm install --only=production
 
 # Bundle app source
-COPY . .
+COPY ./dist/ ./dist/
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
