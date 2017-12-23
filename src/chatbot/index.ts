@@ -5,7 +5,7 @@ import { ChatConnector, IAddress } from "botbuilder";
 import { Express } from "express";
 
 import { injectDialogues } from "./dialogues";
-import { sendTextMessageByPhoneNumber } from "./proactiveMessages/textMessage";
+import { sendFacebookMessageByUserID } from "./proactiveMessages/facebook";
 
 const documentDbOptions = {
   host: process.env.MICROSOFT_DOCUMENT_DB_HOST_URL,
@@ -53,14 +53,6 @@ export const injectBot = (route: string, app: Express, connector: ChatConnector)
 
   // };
 
-  const address = {
-    // "id": "mid.$cAAKTO2eCPcxmqKR7rVgd18zg9LdW",
-    "channelId": "facebook",
-    "user": { "id": "1755254141186727", "name": "Theoderik Trajanson" },
-    "conversation": {"isGroup": false, "id": "1755254141186727-724832851055215"},
-    "bot": { "id": "724832851055215", "name": "trajanson-chat-bot" },
-    "serviceUrl": "https://facebook.botframework.com",
-  };
   setTimeout(() => {
     const card = new builder.AnimationCard()
     .title("Fearless!")
@@ -77,6 +69,6 @@ export const injectBot = (route: string, app: Express, connector: ChatConnector)
       .addAttachment(card);
 
     message.textLocale("en-US");
-    // sendProactiveMessage(address);
+    sendFacebookMessageByUserID(bot, "1755254141186727", message);
    }, 5000);
 };

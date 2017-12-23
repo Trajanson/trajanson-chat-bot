@@ -1,15 +1,13 @@
 import { Session, Message, UniversalBot } from "botbuilder";
 
-export const sendTextMessageByPhoneNumber = (botOrSession: UniversalBot | Session, phoneNumber: string, message: Message) => {
+export const sendFacebookMessageByUserID = (botOrSession: UniversalBot | Session, userID: string, message: Message) => {
     const address = {
-        "id": `+1${phoneNumber}`,
-        "channelId": "sms",
-        "user": { "id": `+1${phoneNumber}`, "name": `+1${phoneNumber}` },
-        "conversation": { "isGroup": false, "id": `+1${phoneNumber}` },
-        "bot": { "id": `+${process.env.TWILIO_PHONE_NUMBER}`, "name": "trajanson-chat-bot" },
-        "serviceUrl": "https://sms.botframework.com",
-      };
-
+    "channelId": "facebook",
+    "user": { "id": `${userID}`, "name": "Theoderik Trajanson" },
+    "conversation": {"isGroup": false, "id": `${userID}`},
+    "bot": { "id": "724832851055215", "name": "trajanson-chat-bot" },
+    "serviceUrl": "https://facebook.botframework.com",
+    };
 
     const session = botOrSession as Session;
 
