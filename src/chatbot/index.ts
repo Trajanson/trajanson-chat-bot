@@ -1,5 +1,5 @@
 import * as builder from "botbuilder";
-const azure = require("botbuilder-azure/lib/botbuilder-azure.js");
+// const azure = require("botbuilder-azure/lib/botbuilder-azure.js");
 
 import { ChatConnector, IAddress, UniversalBot } from "botbuilder";
 import { Express } from "express";
@@ -9,16 +9,16 @@ import { sendFacebookMessageByUserID } from "./proactiveMessages/facebook";
 
 import { getTaylorInPoolCard } from "./gifs/taylorCards";
 
-const documentDbOptions = {
-  host: process.env.MICROSOFT_DOCUMENT_DB_HOST_URL,
-  masterKey: process.env.MICROSOFT_DOCUMENT_DB_KEY,
-  database: process.env.MICROSOFT_DOCUMENT_DB_DATABASE,
-  collection: process.env.MICROSOFT_DOCUMENT_DB_COLLECTION,
-};
+// const documentDbOptions = {
+//   host: process.env.MICROSOFT_DOCUMENT_DB_HOST_URL,
+//   masterKey: process.env.MICROSOFT_DOCUMENT_DB_KEY,
+//   database: process.env.MICROSOFT_DOCUMENT_DB_DATABASE,
+//   collection: process.env.MICROSOFT_DOCUMENT_DB_COLLECTION,
+// };
 
-const docDbClient = new azure.DocumentDbClient(documentDbOptions);
+// const docDbClient = new azure.DocumentDbClient(documentDbOptions);
 
-const cosmosStorage = new azure.AzureBotStorage({ gzipData: false }, docDbClient);
+// const cosmosStorage = new azure.AzureBotStorage({ gzipData: false }, docDbClient);
 
 const sendBootMessage = (bot: UniversalBot) => (() => {
   const card = getTaylorInPoolCard()
@@ -35,8 +35,8 @@ export const injectBot = (route: string, app: Express, connector: ChatConnector)
   app.post(route, connector.listen());
 
   const bot = new builder.UniversalBot(connector);
-  bot.set("storage", cosmosStorage);
-  bot.set(`persistUserData`, true);
+  // bot.set("storage", cosmosStorage);
+  // bot.set(`persistUserData`, true);
 
   injectDialogues(bot);
 

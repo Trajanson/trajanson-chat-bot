@@ -1,6 +1,5 @@
 import * as builder from "botbuilder";
 import { UniversalBot, IDialogWaterfallStep } from "botbuilder";
-import { UserRecord } from "./../../objectModels/User";
 
 import { rootDialog } from "./rootDialogues/rootDialog";
 import { newUserWelcomeDialog } from "./rootDialogues/newUserWelcomeDialog";
@@ -15,35 +14,35 @@ export const injectDialogues = (bot: UniversalBot) => {
 
     bot.dialog("WelcomeUnknownUser", newUserWelcomeDialog);
 
-    bot.dialog("LaughDialogue", [(session, args, next) => {
-        session.send("hahaha");
-        session.endDialogWithResult({});
-    }]).triggerAction({
-        matches: /^lol$/i,
-        onSelectAction: (session, args) => {
-            session.beginDialog(args.action, args);
-        },
-    });
+    // bot.dialog("LaughDialogue", [(session, args, next) => {
+    //     session.send("hahaha");
+    //     session.endDialogWithResult({});
+    // }]).triggerAction({
+    //     matches: /^lol$/i,
+    //     onSelectAction: (session, args) => {
+    //         session.beginDialog(args.action, args);
+    //     },
+    // });
 
-    bot.dialog("Help", [
-        (session, args, next) => {
-            let message = "";
-            switch (args.action) {
-                case "AddNumber":
-                    message = "You can either type the next number, or use **total** to get the total.";
-                    break;
-                default:
-                    message = "You can type **add** to add numbers.";
-                    break;
-            }
-            session.endDialog(message);
-        }
-    ]).triggerAction({
-        matches: /^help/i,
-        onSelectAction: (session, args) => {
-            session.beginDialog(args.action, args);
-        }
-    });
+    // bot.dialog("Help", [
+    //     (session, args, next) => {
+    //         let message = "";
+    //         switch (args.action) {
+    //             case "AddNumber":
+    //                 message = "You can either type the next number, or use **total** to get the total.";
+    //                 break;
+    //             default:
+    //                 message = "You can type **add** to add numbers.";
+    //                 break;
+    //         }
+    //         session.endDialog(message);
+    //     }
+    // ]).triggerAction({
+    //     matches: /^help/i,
+    //     onSelectAction: (session, args) => {
+    //         session.beginDialog(args.action, args);
+    //     }
+    // });
 
 
 };

@@ -1,7 +1,6 @@
 import * as builder from "botbuilder";
 import { IDialogWaterfallStep } from "botbuilder";
 
-import { UserRecord } from "./../../../objectModels/User";
 import { getTaylorExcitedCard } from "./../../gifs/taylorCards";
 
 export const returningUserDialog: IDialogWaterfallStep[] = [
