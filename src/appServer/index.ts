@@ -23,7 +23,6 @@ app.get("/", (req, res) => {
 
 // Connect to MongoDB
 const mongoUrl = (process.env.MONGODB_ENV === "DEV" ? process.env.MONGODB_URI_DEV : process.env.MONGODB_URI_PRODUCTION);
-console.log("mongoUrl", mongoUrl);
 (<any>mongoose).Promise = bluebird;
 mongoose.connect(mongoUrl, { useMongoClient: true }).then(
     () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },

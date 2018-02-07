@@ -10,9 +10,11 @@ import { getTaylorAdorableHiCard, getTaylorExcitedCard } from "./../gifs/taylorC
 export const injectDialogues = (bot: UniversalBot) => {
     bot.dialog("/", rootDialog);
 
-    bot.dialog("WelcomeKnownUser", returningUserDialog);
+    const knownUserRoute = "WelcomeKnownUser";
+    bot.dialog(knownUserRoute, returningUserDialog);
 
-    bot.dialog("WelcomeUnknownUser", newUserWelcomeDialog);
+    const newUserRoute = "WelcomeUnknownUser";
+    bot.dialog(newUserRoute, newUserWelcomeDialog);
 
     // bot.dialog("LaughDialogue", [(session, args, next) => {
     //     session.send("hahaha");

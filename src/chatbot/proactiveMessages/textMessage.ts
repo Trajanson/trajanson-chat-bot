@@ -1,6 +1,6 @@
 import { Session, Message, UniversalBot } from "botbuilder";
 
-export const sendTextMessageByPhoneNumber = (botOrSession: UniversalBot | Session, phoneNumber: string, message: Message) => {
+export const sendTextMessageByPhoneNumber = async (botOrSession: UniversalBot | Session, phoneNumber: string, message: Message) => {
     const address = {
         "id": `+1${phoneNumber}`,
         "channelId": "sms",
@@ -13,5 +13,5 @@ export const sendTextMessageByPhoneNumber = (botOrSession: UniversalBot | Sessio
 
     const session = botOrSession as Session;
 
-    session.send(message.address(address));
+    await session.send(message.address(address));
 };
