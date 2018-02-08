@@ -22,7 +22,6 @@ import { BotSingleton } from "./../chatbot/BotSingleton";
 // const cosmosStorage = new azure.AzureBotStorage({ gzipData: false }, docDbClient);
 
 const sendBootMessage = (bot: UniversalBot) => (() => {
-  console.log("HIT");
   const card = getTaylorInPoolCard()
     .title("Head First, Fearless!")
     .subtitle("Hello, the Trajanson Bot has been deployed.");

@@ -6,19 +6,29 @@ import { getTaylorAdorableHiCard, getTaylorExcitedCard } from "./../../gifs/tayl
 export const newUserWelcomeDialog: IDialogWaterfallStep[] = [
     async (session, args, next) => {
 
+        const currentUserJSON = JSON.stringify((session as any).currentUser, undefined, 4);
+        session.send(`You are: ${currentUserJSON}`);
+
         const message = new builder.Message(session)
           .addAttachment(getTaylorAdorableHiCard());
-        await session.send(message);
+        session.send(message);
 
-
-        setTimeout(async () => {
-            await session.send(`Hey Theoderik! Have we met? I’m Taylor!`);
-            await session.send(`I help Julian schedule time to assemble with superlative people like yourself.`);
-            await session.send(`In fact, that's what I'm doing right now!`);
-            await session.send(`Are you free Tuesday or Wednesday at 7pm EST?`);
-
-            session.endDialogWithResult({});
-        }, 7000);
-
+        next();
+    },
+    async (session, args, next) => {
+        session.send(`Hey Theoderik! Have we met? I’m Taylor!`);
+        next();
+    },
+    async (session, args, next) => {
+        session.send(`I help Julian schedule time to assemble with superlative people like yourself.`);
+        next();
+    },
+    async (session, args, next) => {
+        session.send(`In fact, that's what I'm doing right now!`);
+        next();
+    },
+    async (session, args, next) => {
+        session.send(`Are you free Tuesday or Wednesday at 7pm EST?`);
+        session.endDialogWithResult({});
     },
 ];
