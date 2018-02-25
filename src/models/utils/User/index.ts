@@ -5,12 +5,21 @@ import { createFromPhoneNumber } from "../../../models/utils/User/staticMethods/
 import { createFromFacebook } from "../../../models/utils/User/staticMethods/create/createFromFacebook";
 import { getOrCreateFromPhoneNumber } from "../../../models/utils/User/staticMethods/getOrCreate/getOrCreateFromPhoneNumber";
 import { getOrCreateFromFacebook } from "../../../models/utils/User/staticMethods/getOrCreate/getOrCreateFromFacebook";
+import { getTextMessageMSFTBotFrameworkAddress } from "../../../models/utils/User/methods/getMSFTFrameworkAddress/getTextMessageMSFTBotFrameworkAddress";
+import { getFacebookMSFTBotFrameworkAddress } from "../../../models/utils/User/methods/getMSFTFrameworkAddress/getFacebookMSFTBotFrameworkAddress";
+import { getOrCreateFromMSFTBotFrameworkAddress } from "../../../models/utils/User/staticMethods/getOrCreate/getOrCreateFromMSFTBotFrameworkAddress";
+import { pushMessage } from "../../../models/utils/User/methods/pushMessage";
 
 export interface IFacebookConnection {
     messengerID: string;
 }
 
+export interface IUserRoles {
+    isSuperUser: boolean;
+}
+
 export interface IUser {
+    roles?: IUserRoles;
     email?: string;
     phoneNumber?: string;
 
@@ -21,37 +30,57 @@ export interface IUser {
 
     facebook?: IFacebookConnection;
 
+    messages?: string[];
+
     getTextMessageMSFTBotFrameworkAddress: () => IStartConversationAddress;
 
     getFacebookMSFTBotFrameworkAddress: () => IStartConversationAddress;
+
+    pushMessage: (message: string) => void;
 }
 
 export type IUserModel = mongoose.Document & IUser;
 
-export const userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        unique: true,
-    },
-    phoneNumber: {
-        type: String,
-        unique: true,
-        trim: true,
-        validate: [validateMobilePhoneNumber, "Not a mobile phone number"],
-    },
+export const userSchema = new mongoose.Schema(
+    {
+        roles: {
+            isSuperUser: { type: Boolean, default: false }
+        },
+        email: {
+            type: String,
+            unique: true,
+        },
+        phoneNumber: {
+            type: String,
+            unique: true,
+            trim: true,
+            validate: [validateMobilePhoneNumber, "Not a mobile phone number"],
+        },
 
-    firstName: { type: String },
-    middleName: { type: String },
-    lastName: { type: String },
-    gender: { type: String },
+        firstName: { type: String },
+        middleName: { type: String },
+        lastName: { type: String },
+        gender: { type: String },
 
-    facebook: {
-        messengerID: String,
-    }
-    }, {
+        facebook: {
+            messengerID: String,
+        },
+
+        messages: { type: [String], default: [] },
+    },
+    {
         strict: true,
         timestamps: true,
-});
+    }
+);
+
+userSchema.methods.pushMessage = pushMessage;
+
+userSchema.methods.getTextMessageMSFTBotFrameworkAddress = getTextMessageMSFTBotFrameworkAddress;
+userSchema.methods.getFacebookMSFTBotFrameworkAddress = getFacebookMSFTBotFrameworkAddress;
+
+
+userSchema.statics.getOrCreateFromMSFTBotFrameworkAddress = getOrCreateFromMSFTBotFrameworkAddress;
 
 userSchema.statics.createFromPhoneNumber = createFromPhoneNumber;
 userSchema.statics.createFromFacebook = createFromFacebook;
