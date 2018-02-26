@@ -9,6 +9,7 @@ import { getTextMessageMSFTBotFrameworkAddress } from "../../../models/utils/Use
 import { getFacebookMSFTBotFrameworkAddress } from "../../../models/utils/User/methods/getMSFTFrameworkAddress/getFacebookMSFTBotFrameworkAddress";
 import { getOrCreateFromMSFTBotFrameworkAddress } from "../../../models/utils/User/staticMethods/getOrCreate/getOrCreateFromMSFTBotFrameworkAddress";
 import { pushMessage } from "../../../models/utils/User/methods/pushMessage";
+import { getOrCreateFromEmulator } from "./staticMethods/getOrCreate/getOrCreateFromEmulator";
 
 export interface IFacebookConnection {
     messengerID: string;
@@ -31,6 +32,8 @@ export interface IUser {
     facebook?: IFacebookConnection;
 
     messages?: string[];
+
+    emulator?: string;
 
     getTextMessageMSFTBotFrameworkAddress: () => IStartConversationAddress;
 
@@ -67,6 +70,10 @@ export const userSchema = new mongoose.Schema(
         },
 
         messages: { type: [String], default: [] },
+        emulator: {
+            type: String,
+            unique: true,
+        },
     },
     {
         strict: true,
@@ -84,6 +91,7 @@ userSchema.statics.getOrCreateFromMSFTBotFrameworkAddress = getOrCreateFromMSFTB
 
 userSchema.statics.createFromPhoneNumber = createFromPhoneNumber;
 userSchema.statics.createFromFacebook = createFromFacebook;
+userSchema.statics.getOrCreateFromEmulator = getOrCreateFromEmulator;
 
 userSchema.statics.getOrCreateFromPhoneNumber = getOrCreateFromPhoneNumber;
 userSchema.statics.getOrCreateFromFacebook = getOrCreateFromFacebook;

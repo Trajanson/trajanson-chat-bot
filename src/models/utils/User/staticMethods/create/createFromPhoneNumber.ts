@@ -10,6 +10,7 @@ export const createFromPhoneNumber = async function (
     request: ICreateUserFromPhoneNumberRequest,
 ): Promise<IUserModel> {
     const user = new User(request);
+    console.log("request", JSON.stringify(request, undefined, 4));
     await user.save();
     return user;
 };

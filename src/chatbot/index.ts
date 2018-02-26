@@ -10,6 +10,9 @@ import { sendFacebookMessageByUserID } from "./proactiveActions/messages/faceboo
 import { getTaylorInPoolCard } from "./gifs/taylorCards";
 import { BotSingleton } from "./../chatbot/BotSingleton";
 import { botMiddleware } from "../chatbot/middleware";
+import { sendTextMessageByPhoneNumber } from "./proactiveActions/messages/textMessage";
+import { rootDialog } from "./dialogues/rootDialogues/rootDialog";
+import { sendEmulatorMessageByUserID } from "./proactiveActions/messages/emulator";
 
 // const documentDbOptions = {
 //   host: process.env.MICROSOFT_DOCUMENT_DB_HOST_URL,
@@ -31,13 +34,14 @@ const sendBootMessage = () => {
     .addAttachment(card);
 
   const bot: UniversalBot = BotSingleton.getBot();
-  sendFacebookMessageByUserID(bot, "1755254141186727", message);
+  // sendFacebookMessageByUserID(bot, "1755254141186727", message);
+  sendEmulatorMessageByUserID(bot, "default-user", message);
 };
 
 export const injectBot = (route: string, app: Express, connector: ChatConnector) => {
   app.post(route, connector.listen());
 
-  const bot = new builder.UniversalBot(connector);
+  const bot = new builder.UniversalBot(connector, rootDialog);
   BotSingleton.setBot(bot);
 
   // bot.set("storage", cosmosStorage);

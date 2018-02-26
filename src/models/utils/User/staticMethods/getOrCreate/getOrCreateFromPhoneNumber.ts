@@ -10,6 +10,7 @@ export const getOrCreateFromPhoneNumber = async function (
     user = await User.findOne({ phoneNumber });
     if (!user) {
         user = (User as any).createFromPhoneNumber({ phoneNumber });
+        console.log("user from inside getOrCreateFromPhoneNumber", JSON.stringify(user, undefined, 4));
         await user.save();
     }
     return user;

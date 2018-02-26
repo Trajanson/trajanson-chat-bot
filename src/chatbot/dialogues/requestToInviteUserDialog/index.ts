@@ -4,15 +4,19 @@ import { getTaylorAdorableHiCard } from "./../../../chatbot/gifs/taylorCards";
 import { inviteUser } from "../../../chatbot/proactiveActions/dialogues/inviteUser";
 import { User, IUserModel } from "../../../models/utils/User";
 
-export const requestToAddUserByPhoneDialog: IDialogWaterfallStep[] = [
+export const requestToInviteUserDialog: IDialogWaterfallStep[] = [
     async (session, args, next) => {
-        const phoneNumber = "7249773225";
-        const message = new builder.Message(session)
-            .addAttachment(getTaylorAdorableHiCard());
+        builder.Prompts.text(session, "What is the phone number of the person you want to add?");
+    },
+    async (session, args, next) => {
+        const phoneNumber = args.response;
 
         const user: IUserModel = await User.schema.statics.getOrCreateFromPhoneNumber(phoneNumber);
         const userPhoneAddress = await user.getTextMessageMSFTBotFrameworkAddress();
 
-        setTimeout(inviteUser(userPhoneAddress), 100);
+        setTimeout(
+            () => inviteUser(userPhoneAddress),
+            100,
+        );
     },
 ];

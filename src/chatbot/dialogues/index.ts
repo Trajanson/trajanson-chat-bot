@@ -6,15 +6,32 @@ import { newUserWelcomeDialog } from "./rootDialogues/newUserWelcomeDialog";
 import { returningUserDialog } from "./rootDialogues/returningUserDialog";
 
 import { getTaylorAdorableHiCard, getTaylorExcitedCard } from "./../gifs/taylorCards";
+import { adminRootDialog } from "./adminDialogues";
+import { requestToInviteUserDialog } from "./requestToInviteUserDialog";
+import { invitingNewUserDialog } from "./proactiveDialogues/invitingNewUserDialog";
+
+/** ROUTES */
+export const knownUserRoute                = "WelcomeKnownUser";
+export const newUserRoute                  = "WelcomeUnknownUser";
+
+export const adminRootRoute                = "admin/root";
+
+export const requestToInviteUserRoute      = "requestToInviteUser";
+
+export const proactiveInvitingNewUserRoute = "proactive/inviteUser";
 
 export const injectDialogues = (bot: UniversalBot) => {
-    bot.dialog("/", rootDialog);
+    // bot.dialog(knownUserRoute, returningUserDialog);
 
-    const knownUserRoute = "WelcomeKnownUser";
-    bot.dialog(knownUserRoute, returningUserDialog);
 
-    const newUserRoute = "WelcomeUnknownUser";
-    bot.dialog(newUserRoute, newUserWelcomeDialog);
+    // bot.dialog(newUserRoute, newUserWelcomeDialog);
+
+
+    // bot.dialog(adminRootRoute, adminRootDialog);
+
+    // bot.dialog(requestToInviteUserRoute, requestToInviteUserDialog);
+
+    // bot.dialog(proactiveInvitingNewUserRoute, invitingNewUserDialog);
 
     // bot.dialog("LaughDialogue", [(session, args, next) => {
     //     session.send("hahaha");

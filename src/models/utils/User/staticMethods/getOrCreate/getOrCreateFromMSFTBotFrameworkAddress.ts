@@ -10,7 +10,7 @@ export const getOrCreateFromMSFTBotFrameworkAddress = async (
         case "sms":
             return await User.schema.statics.getOrCreateFromPhoneNumber(address);
         case "emulator":
-            break;
+            return await User.schema.statics.getOrCreateFromEmulator(address);
         default:
             break;
     }
