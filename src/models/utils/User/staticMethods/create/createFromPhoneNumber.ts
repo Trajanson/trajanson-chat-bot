@@ -1,8 +1,8 @@
 import { IStartConversationAddress } from "botbuilder";
-import { IUserModel, User } from "../../../User";
+import { IUserModel, User, IUserBaseProps } from "../../../User";
 import { IUser } from "../..";
 
-export interface ICreateUserFromPhoneNumberRequest extends IUser {
+export interface ICreateUserFromPhoneNumberRequest extends IUserBaseProps {
     phoneNumber: string;
 }
 

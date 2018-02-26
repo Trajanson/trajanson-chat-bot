@@ -34,8 +34,8 @@ const sendBootMessage = () => {
     .addAttachment(card);
 
   const bot: UniversalBot = BotSingleton.getBot();
-  // sendFacebookMessageByUserID(bot, "1755254141186727", message);
-  sendEmulatorMessageByUserID(bot, "default-user", message);
+  sendFacebookMessageByUserID(bot, "1755254141186727", message);
+  // sendEmulatorMessageByUserID(bot, "default-user", message);
 };
 
 export const injectBot = (route: string, app: Express, connector: ChatConnector) => {

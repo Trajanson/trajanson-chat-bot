@@ -44,3 +44,7 @@ export const getTaylorInPoolCard = () => getTaylorCard(urlTaylor22InPool);
 export const getTaylorAdorableHiCard = () => getTaylorCard(urlTaylorAdorableHi);
 
 export const getTaylorExcitedCard = () => getTaylorCard(urlTaylorExcited);
+
+export const getTaylorCryingCard = () => getTaylorCard(urlTaylorCrying);
+
+export const getTaylorBeingRidiculousCard = () => getTaylorCard(urlTaylorBeingRidiculous);

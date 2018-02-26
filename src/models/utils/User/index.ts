@@ -19,7 +19,7 @@ export interface IUserRoles {
     isSuperUser: boolean;
 }
 
-export interface IUser {
+export interface IUserBaseProps {
     roles?: IUserRoles;
     email?: string;
     phoneNumber?: string;
@@ -34,7 +34,9 @@ export interface IUser {
     messages?: string[];
 
     emulator?: string;
+}
 
+export interface IUser extends IUserBaseProps {
     getTextMessageMSFTBotFrameworkAddress: () => IStartConversationAddress;
 
     getFacebookMSFTBotFrameworkAddress: () => IStartConversationAddress;

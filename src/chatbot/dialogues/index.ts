@@ -21,17 +21,17 @@ export const requestToInviteUserRoute      = "requestToInviteUser";
 export const proactiveInvitingNewUserRoute = "proactive/inviteUser";
 
 export const injectDialogues = (bot: UniversalBot) => {
-    // bot.dialog(knownUserRoute, returningUserDialog);
+    bot.dialog(knownUserRoute, returningUserDialog);
 
 
-    // bot.dialog(newUserRoute, newUserWelcomeDialog);
+    bot.dialog(newUserRoute, newUserWelcomeDialog);
 
 
-    // bot.dialog(adminRootRoute, adminRootDialog);
+    bot.dialog(adminRootRoute, adminRootDialog);
 
-    // bot.dialog(requestToInviteUserRoute, requestToInviteUserDialog);
+    bot.dialog(requestToInviteUserRoute, requestToInviteUserDialog);
 
-    // bot.dialog(proactiveInvitingNewUserRoute, invitingNewUserDialog);
+    bot.dialog(proactiveInvitingNewUserRoute, invitingNewUserDialog);
 
     // bot.dialog("LaughDialogue", [(session, args, next) => {
     //     session.send("hahaha");

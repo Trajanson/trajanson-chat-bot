@@ -5,10 +5,9 @@ import { IUser } from "../..";
 export const getOrCreateFromFacebook = async function (
     address: IAddress,
 ): Promise<IUserModel> {
-    let user: IUserModel;
     const messengerID = address.user.id;
-    const fullName = address.user.name;
 
+    let user: IUserModel;
     user = await User.findOne({ "facebook.messengerID": messengerID });
     if (!user) {
         user = (User as any).createFromFacebook({ facebook: { messengerID } });

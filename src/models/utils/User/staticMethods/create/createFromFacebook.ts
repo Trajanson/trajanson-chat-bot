@@ -1,8 +1,8 @@
 import { IStartConversationAddress } from "botbuilder";
-import { IUserModel, User } from "../../../User";
+import { IUserModel, User, IUserBaseProps } from "../../../User";
 import { IUser, IFacebookConnection } from "../..";
 
-export interface ICreateUserFromFacebookRequest extends IUser {
+export interface ICreateUserFromFacebookRequest extends IUserBaseProps {
     facebook: IFacebookConnection;
 }
 

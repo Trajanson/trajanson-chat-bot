@@ -1,16 +1,16 @@
-import { IStartConversationAddress } from "botbuilder";
+import { IStartConversationAddress, IAddress } from "botbuilder";
 import { IUserModel, User } from "../../../User";
 import { IUser } from "../..";
 
 export const getOrCreateFromPhoneNumber = async function (
-    phoneNumber: string,
+    address: IAddress,
 ): Promise<IUserModel> {
-    let user: IUserModel;
+    const phoneNumber = address.user.id.slice(2);
 
+    let user: IUserModel;
     user = await User.findOne({ phoneNumber });
     if (!user) {
         user = (User as any).createFromPhoneNumber({ phoneNumber });
-        console.log("user from inside getOrCreateFromPhoneNumber", JSON.stringify(user, undefined, 4));
         await user.save();
     }
     return user;
