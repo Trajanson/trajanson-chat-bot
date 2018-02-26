@@ -9,7 +9,14 @@ export interface ICreateUserFromFacebookRequest extends IUserBaseProps {
 export const createFromFacebook = async function (
     request: ICreateUserFromFacebookRequest,
 ): Promise<IUserModel> {
-    const user = new User(request);
-    await user.save();
+    let user: IUserModel;
+    const messengerID = request.facebook.messengerID;
+
+    user = await User.findOne({ "facebook.messengerID": messengerID });
+    if (!user) {
+        const user = new User(request);
+        await user.save();
+    }
+
     return user;
 };

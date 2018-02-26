@@ -15,9 +15,7 @@ export const requestToInviteUserDialog: IDialogWaterfallStep[] = [
     },
     async (session, args, next) => {
         session.dialogData.firstName = args.response;
-        builder.Prompts.text(session, "What is their first name?");
-    },
-    async (session, args, next) => {
+
         const phoneNumber = session.dialogData.phoneNumber;
         const firstName = session.dialogData.firstName;
 
@@ -25,7 +23,7 @@ export const requestToInviteUserDialog: IDialogWaterfallStep[] = [
             phoneNumber,
             firstName,
         };
-        const user: IUserModel = await User.schema.statics.createFromPhoneNumber(phoneNumber);
+        const user: IUserModel = await User.schema.statics.createFromPhoneNumber(userData);
         const userPhoneAddress = await user.getTextMessageMSFTBotFrameworkAddress();
 
         setTimeout(

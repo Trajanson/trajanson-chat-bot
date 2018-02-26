@@ -9,8 +9,13 @@ export interface ICreateUserFromPhoneNumberRequest extends IUserBaseProps {
 export const createFromPhoneNumber = async function (
     request: ICreateUserFromPhoneNumberRequest,
 ): Promise<IUserModel> {
-    const user = new User(request);
-    console.log("request", JSON.stringify(request, undefined, 4));
-    await user.save();
+    let user: IUserModel;
+    const phoneNumber = request.phoneNumber;
+
+    user = await User.findOne({ phoneNumber });
+    if (!user) {
+        user = new User(request);
+        await user.save();
+    }
     return user;
 };
