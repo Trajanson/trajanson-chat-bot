@@ -32,7 +32,7 @@ export const invitingNewUserDialog: IDialogWaterfallStep[] = [
     },
     async (session, args, next) => {
         session.sendTyping();
-        session.send("There are so many unbelievable events happening in New York that I'm such a fan of and I'd \U0001F49E to share some of these invitations with you!");
+        session.send("There are so many unbelievable events happening in New York that I'm such a fan of and I'd 💕 to share some of these invitations with you!");
 
         const text = `Is that ok?`;
         builder.Prompts.confirm(session, text);
